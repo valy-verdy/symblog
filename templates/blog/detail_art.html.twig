@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    SymBlog: Detail Article
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center text-white bg-primary p-2">Détail Article</h1>
+    <article class="article mb-3">
+        <h3>{{ article.title }}</h3>
+        <em>(Créé le {{ article.createdAt | date('d/m/Y') }} dans la catégorie {{ article.category.name }})</em>
+        <div>
+            <img src="{{ article.picture }}" alt="">
+           <p>{{ article.content }}</p>
+        </div>
+    </article>
+    <div>
+        <a class=" btn btn-warning" href="{{ path('blog_edit_art',{'id':article.id})}}">Modifier</a>
+        <a href="{{ path('blog_index')}}" class="btn btn-primary">Retour aux Articles</a>
+    </div>
+
+
+<hr>
+
+<section class="comments">
+    <h2 class="text-center bg-info">Commentaires</h2>
+
+    {% if article.comments is not empty %}
+
+        {% set comments = article.comments %}
+        {% for com in comments %}
+            <div class="row mb-3">
+                <div class="col-3">
+                    {{(com.author)}}
+                    <em> {{com.createdAt | date('d/m/y')}}</em>
+                </div>
+                <div class="col">
+                    {{(com.content)}}
+                </div>
+            </div>
+        {% endfor %}
+
+        
+
+
+
+
+    {% else %}
+        <h4> Pas de commentaires</h4>
+
+    {% endif %}
+        
+
+
+</section>
+<div class="avert mt-3">
+
+    {% if not app.user %}
+        <a class="btn btn-primary" href="{{path('app_login')}}"> Me Connecter</a>
+    {% else %}
+
+    <h4 class="text-center">Commentaires</h4>
+    {{(form_start (formCom))}}
+        {{(form_row (formCom.author, {'label':"Votre nom"}))}}
+        {{(form_start (formCom.content,{'label':"Votre commentaire"}))}}
+
+        
+    {{(form_end (formCom))}}
+{% endif %}
+
+<button type="submit" class="btn btn-success mb-5">Enregistrer mon commentaire </button>
+
+</div>
+
+
+{% endblock %}

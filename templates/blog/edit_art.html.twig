@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    symblog: Edit Article
+{% endblock %}
+
+{% block body %}
+<h1 class="text-center text-white bg-primary p-2" >Edition Article</h1>
+    {# {{ form(artForm) }} #}
+    {{ form_start(artForm) }}
+         {{ form_row(artForm.title) }}
+
+          {{ form_row(artForm.content, {
+            'label': "contenu",
+            'attr' :{'placeholder' : "contenu de l'article"}
+            })
+        }}
+
+        {{ form_row(artForm.picture,{
+            'label' : "image",
+            'attr' :{'placeholder' : "URL de l'article"}
+
+        }) 
+        }}
+
+         {{ form_row(artForm.category,{
+            'label' : "Catégorie de l'article "
+            
+
+        }) 
+        }}
+        <button type = "submit" class="btn btn-primary">
+            {% if mode %}
+            Enregistre les modification pour
+            {% else %}
+            Créer l'article
+            {% endif  %}
+        </button>
+    {{ form_end(artForm) }}
+
+{% endblock %}
+
+{# <h1> Edition Article</h1> #}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symblog : eLs articles{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center bg-primary text-white p-2 mb-3">Les Articles</h1>
+
+    <div class="articles">
+
+        {% if articles is not empty %}
+
+            {% for art in articles %}
+
+                <article class="article mb-3">
+                    <h3>{{ art.title }}</h3>
+                    <em>(Créé le {{ art.createdAt | date('d/m/Y') }} dans la catégorie {{ art.category.name }})</em>
+                    <div>
+                        <img src="{{ art.picture }}" alt="">
+                        <a href="{{ path('blog_detail_art', {id: art.id}) }}" class="btn btn-primary">Voir la suite...</a>
+                    </div>
+                </article>
+            {% endfor %}
+
+        {% else %}
+            <h3>Aucun article disponible</h3>
+        {% endif %}
+
+
+
+        
+       
+    </div>
+
+{% endblock %}
